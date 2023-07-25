@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TabPane prefHeight="697.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewichtstracker.Controller">
+   <tabs>
+      <Tab closable="false" text="Daten">
+         <content>
+            <VBox prefHeight="500.0" prefWidth="443.0" spacing="10">
+                <TableView fx:id="entryTableView" prefHeight="557.0" prefWidth="874.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="119.0" text="ID" />
+                        <TableColumn fx:id="datumColumn" prefWidth="324.0" text="Datum" />
+                        <TableColumn fx:id="gewichtColumn" prefWidth="430.0" text="Gewicht" />
+                    </columns>
+                </TableView>
+               <HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="874.0" spacing="20.0">
+                  <children>
+                      <Label text="ID:">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                      <TextField fx:id="idTextField" />
+                      <Label text="Datum:">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                      <TextField fx:id="datumTextField" />
+                      <Label text="Gewicht:">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                      <TextField fx:id="gewichtTextField" />
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" prefHeight="49.0" prefWidth="874.0" spacing="20.0">
+                  <children>
+                      <Button onAction="#handleAdd" text="Hinzufügen">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Button>
+                      <Button onAction="#handleUpdate" text="Aktualisieren">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Button>
+                      <Button onAction="#handleDelete" text="Löschen">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Button>
+                  </children>
+               </HBox>
+            </VBox>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Graph">
+        <content>
+          <VBox prefHeight="700.0" prefWidth="900.0" spacing="10">
+            <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
+              <xAxis>
+                <NumberAxis label="ID" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="Gewicht" side="LEFT" />
+              </yAxis>
+            </LineChart>
+          </VBox>
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>
