@@ -73,4 +73,36 @@ public class GewichtDAO {
             e.printStackTrace();
         }
     }
+
+    public GewichtEntry getEntryById(int id) {
+        GewichtEntry entry = null;
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM gewicht WHERE id = ?")) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String datum = rs.getString("datum");
+                    double gewicht = rs.getDouble("gewicht");
+                    entry = new GewichtEntry(id, datum, gewicht);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entry;
+    }
+
+    public void insertAll(List<GewichtEntry> entries) {
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "INSERT INTO gewicht (datum, gewicht) VALUES (?, ?)")) {
+            for (GewichtEntry entry : entries) {
+                pstmt.setString(1, entry.getDatum());
+                pstmt.setDouble(2, entry.getGewicht());
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

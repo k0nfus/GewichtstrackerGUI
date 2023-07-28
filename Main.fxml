@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -22,7 +24,7 @@
                     <columns>
                         <TableColumn fx:id="idColumn" prefWidth="119.0" text="ID" />
                         <TableColumn fx:id="datumColumn" prefWidth="324.0" text="Datum" />
-                        <TableColumn fx:id="gewichtColumn" prefWidth="430.0" text="Gewicht" />
+                        <TableColumn fx:id="gewichtColumn" prefWidth="424.0" text="Gewicht" />
                     </columns>
                 </TableView>
                <HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="874.0" spacing="20.0">
@@ -46,6 +48,9 @@
                      </Label>
                       <TextField fx:id="gewichtTextField" />
                   </children>
+                  <VBox.margin>
+                     <Insets top="15.0" />
+                  </VBox.margin>
                </HBox>
                <HBox alignment="CENTER" prefHeight="49.0" prefWidth="874.0" spacing="20.0">
                   <children>
@@ -65,6 +70,9 @@
                         </font>
                      </Button>
                   </children>
+                  <VBox.margin>
+                     <Insets bottom="15.0" top="15.0" />
+                  </VBox.margin>
                </HBox>
             </VBox>
          </content>
@@ -74,13 +82,40 @@
           <VBox prefHeight="700.0" prefWidth="900.0" spacing="10">
             <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
               <xAxis>
-                <NumberAxis label="ID" side="BOTTOM" />
+                <NumberAxis label="Datenpunkt" side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis label="Gewicht" side="LEFT" />
               </yAxis>
             </LineChart>
           </VBox>
+        </content>
+      </Tab>
+      <Tab closable="false" text="Einstellungen">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="153.0" prefWidth="874.0" spacing="50.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="55.0" prefWidth="112.0" text="Daten">
+                           <HBox.margin>
+                              <Insets left="20.0" top="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Button fx:id="btnExport" mnemonicParsing="false" onAction="#handleExport" prefHeight="52.0" prefWidth="89.0" text="Export">
+                           <HBox.margin>
+                              <Insets top="50.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnImport" mnemonicParsing="false" onAction="#handleImport" prefHeight="52.0" prefWidth="89.0" text="Import">
+                           <HBox.margin>
+                              <Insets top="50.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
         </content>
       </Tab>
    </tabs>
