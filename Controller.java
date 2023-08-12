@@ -199,6 +199,9 @@ public class Controller {
 
 		// Update the LineChart data
 		updateLineChart();
+		
+	    // Initialize the Tooltips for data points in the LineChart
+	    initializeTooltips();
 
 		// Add a horizontal line (visual goal at y = 100) to the LineChart
 		int highestid = getHighestID();
@@ -216,20 +219,6 @@ public class Controller {
 		// Add the data series for the visual goal to the LineChart
 		lineChart.getData().add(targetSeries);
 
-		// Iterate through data points in the LineChart and add Tooltips
-		for (XYChart.Data<Number, Number> dataPoint : weightSeries.getData()) {
-			GewichtEntry entry = gewichtDAO.getEntryById(dataPoint.getXValue().intValue());
-			String id = String.valueOf(entry.getId());
-			String datum = entry.getDatum();
-			String gewicht = String.valueOf(entry.getGewicht());
-
-			Tooltip tooltip = new Tooltip("ID: " + id + "\nDatum: " + datum + "\nGewicht: " + gewicht);
-			tooltip.setStyle("-fx-font-size: 12px;"); // Optional formatting
-
-			// Tooltip displayed when the mouse hovers over the data point
-			Tooltip.install(dataPoint.getNode(), tooltip);
-		}
-
 		// Laden Sie das Zielgewicht aus der Datei und verwenden Sie es, um die
 		// Zielgewichtslinie zu aktualisieren
 		double loadedTargetWeight = loadTargetWeightFromFile();
@@ -246,6 +235,23 @@ public class Controller {
 			}
 		});
 	}
+	
+	private void initializeTooltips() {
+	    // Iterate through data points in the LineChart and add Tooltips
+	    for (XYChart.Data<Number, Number> dataPoint : weightSeries.getData()) {
+	        GewichtEntry entry = gewichtDAO.getEntryById(dataPoint.getXValue().intValue());
+	        String id = String.valueOf(entry.getId());
+	        String datum = entry.getDatum();
+	        String gewicht = String.valueOf(entry.getGewicht());
+
+	        Tooltip tooltip = new Tooltip("ID: " + id + "\nDatum: " + datum + "\nGewicht: " + gewicht);
+	        tooltip.setStyle("-fx-font-size: 12px;"); // Optional formatting
+
+	        // Tooltip displayed when the mouse hovers over the data point
+	        Tooltip.install(dataPoint.getNode(), tooltip);
+	    }
+	}
+
 
 	private int getHighestID() {
 		// Get all entries from the DAO
