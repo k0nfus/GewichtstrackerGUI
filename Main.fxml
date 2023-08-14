@@ -15,108 +15,186 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane prefHeight="697.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewichtstracker.Controller">
-   <tabs>
-      <Tab closable="false" text="Daten">
-         <content>
-            <VBox prefHeight="500.0" prefWidth="443.0" spacing="10">
-                <TableView fx:id="entryTableView" prefHeight="557.0" prefWidth="874.0" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="idColumn" prefWidth="119.0" text="ID" />
-                        <TableColumn fx:id="datumColumn" prefWidth="324.0" text="Datum" />
-                        <TableColumn fx:id="gewichtColumn" prefWidth="424.0" text="Gewicht" />
-                    </columns>
-                </TableView>
-               <HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="874.0" spacing="20.0">
+<AnchorPane prefHeight="697.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.systemkritisch.GewichtstrackerGUI.Controller">
+
+	<!-- TabPane und seine Tabs -->
+	<TabPane prefHeight="697.0" prefWidth="874.0">
+		<tabs>
+			<!-- Tab "Daten" -->
+			<Tab closable="false" style="-fx-background-color: violet;" text="Daten">
+				<!-- Inhalte des Tabs "Daten" -->
+				<content>
+					<VBox prefHeight="500.0" prefWidth="443.0" spacing="10">
+						<!-- TableView für die Dateneinträge -->
+						<TableView fx:id="entryTableView" prefHeight="557.0" prefWidth="874.0" VBox.vgrow="ALWAYS">
+							<columns>
+								<TableColumn fx:id="idColumn" prefWidth="119.0" text="ID" />
+								<TableColumn fx:id="datumColumn" prefWidth="324.0" text="Datum" />
+								<TableColumn fx:id="gewichtColumn" prefWidth="414.0" text="Gewicht" />
+							</columns>
+						</TableView>
+						<HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="874.0" spacing="20.0">
+							<children>
+								<Label text="ID:">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField fx:id="idTextField" />
+								<Label text="Datum:">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField fx:id="datumTextField" />
+								<Label text="Gewicht:">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField fx:id="gewichtTextField" />
+							</children>
+							<VBox.margin>
+								<Insets top="15.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox alignment="CENTER" prefHeight="49.0" prefWidth="874.0" spacing="20.0">
+							<children>
+								<Button onAction="#handleAdd" text="Hinzufügen">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Button>
+								<Button onAction="#handleUpdate" text="Aktualisieren">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Button>
+								<Button onAction="#handleDelete" text="Löschen">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Button>
+							</children>
+							<VBox.margin>
+								<Insets bottom="15.0" top="15.0" />
+							</VBox.margin>
+						</HBox>
+					</VBox>
+				</content>
+			</Tab>
+
+			<!-- Tab "Graph" -->
+			<Tab closable="false" style="-fx-background-color: lightblue;" text="Graph">
+				<!-- Inhalte des Tabs "Graph" -->
+				<content>
+					<VBox prefHeight="700.0" prefWidth="900.0" spacing="10">
+						<LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
+							<xAxis>
+								<NumberAxis label="Datenpunkt" side="BOTTOM" />
+							</xAxis>
+							<yAxis>
+								<NumberAxis label="Gewicht" side="LEFT" />
+							</yAxis>
+						</LineChart>
+					</VBox>
+				</content>
+			</Tab>
+
+			<!-- Tab "Einstellungen" -->
+			<Tab closable="false" style="-fx-background-color: lime;" text="Einstellungen">
+				<!-- Inhalte des Tabs "Einstellungen" -->
+				<content>
+					<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+						<children>
+							<HBox prefHeight="153.0" prefWidth="874.0" spacing="50.0">
+								<children>
+									<Label alignment="CENTER" prefHeight="55.0" prefWidth="112.0" text="Daten" textAlignment="CENTER">
+										<HBox.margin>
+											<Insets left="20.0" top="50.0" />
+										</HBox.margin>
+									</Label>
+									<Button fx:id="btnExport" mnemonicParsing="false" onAction="#handleExport" prefHeight="52.0" prefWidth="89.0" text="Export">
+										<HBox.margin>
+											<Insets top="50.0" />
+										</HBox.margin>
+									</Button>
+									<Button fx:id="btnImport" mnemonicParsing="false" onAction="#handleImport" prefHeight="52.0" prefWidth="89.0" text="Import">
+										<HBox.margin>
+											<Insets top="50.0" />
+										</HBox.margin>
+									</Button>
+								</children>
+							</HBox>
+							<HBox layoutY="125.0" prefHeight="153.0" prefWidth="874.0" spacing="50.0">
+								<children>
+									<Label alignment="CENTER" prefHeight="55.0" prefWidth="112.0" text="Zielgewicht">
+										<HBox.margin>
+											<Insets left="20.0" top="50.0" />
+										</HBox.margin>
+									</Label>
+									<TextField fx:id="zielgewichtTextField" alignment="CENTER" prefHeight="53.0" prefWidth="149.0" promptText="100">
+										<HBox.margin>
+											<Insets top="50.0" />
+										</HBox.margin>
+										<font>
+											<Font size="14.0" />
+										</font>
+									</TextField>
+									<Button fx:id="btnSpeichern" mnemonicParsing="false" onAction="#saveSettings" prefHeight="52.0" prefWidth="89.0" text="Speichern">
+										<HBox.margin>
+											<Insets top="50.0" />
+										</HBox.margin>
+									</Button>
+								</children>
+							</HBox>
+						</children>
+					</AnchorPane>
+				</content>
+			</Tab>
+         <Tab style="-fx-background-color: orange;" text="BMI">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                      <Label text="ID:">
+                     <Label layoutX="300.0" layoutY="180.0" text="Körpergröße in Meter">
                         <font>
-                           <Font size="15.0" />
+                           <Font size="18.0" />
                         </font>
                      </Label>
-                      <TextField fx:id="idTextField" />
-                      <Label text="Datum:">
+                     <Label layoutX="299.0" layoutY="232.0" text="Gewicht in Kilogramm">
                         <font>
-                           <Font size="15.0" />
+                           <Font size="18.0" />
                         </font>
                      </Label>
-                      <TextField fx:id="datumTextField" />
-                      <Label text="Gewicht:">
+                     <TextField fx:id="txtGroesse" alignment="CENTER" layoutX="506.0" layoutY="174.0" prefHeight="39.0" prefWidth="70.0" promptText="1,91">
                         <font>
-                           <Font size="15.0" />
+                           <Font size="18.0" />
+                        </font>
+                     </TextField>
+                     <TextField fx:id="txtGewicht" alignment="CENTER" layoutX="506.0" layoutY="226.0" prefHeight="39.0" prefWidth="70.0" promptText="108">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </TextField>
+                     <Button fx:id="btnBerechnen" layoutX="383.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleBerechnen" text="berechnen">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Button>
+                     <Label fx:id="lblBMI" layoutX="421.0" layoutY="362.0" text="BMI">
+                        <font>
+                           <Font size="18.0" />
                         </font>
                      </Label>
-                      <TextField fx:id="gewichtTextField" />
+                     <Label fx:id="lblBeschreibung" alignment="CENTER" layoutX="299.0" layoutY="397.0" prefHeight="53.0" prefWidth="277.0" text="Beschreibung" textAlignment="CENTER">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
                   </children>
-                  <VBox.margin>
-                     <Insets top="15.0" />
-                  </VBox.margin>
-               </HBox>
-               <HBox alignment="CENTER" prefHeight="49.0" prefWidth="874.0" spacing="20.0">
-                  <children>
-                      <Button onAction="#handleAdd" text="Hinzufügen">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Button>
-                      <Button onAction="#handleUpdate" text="Aktualisieren">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Button>
-                      <Button onAction="#handleDelete" text="Löschen">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Button>
-                  </children>
-                  <VBox.margin>
-                     <Insets bottom="15.0" top="15.0" />
-                  </VBox.margin>
-               </HBox>
-            </VBox>
-         </content>
-      </Tab>
-      <Tab closable="false" text="Graph">
-        <content>
-          <VBox prefHeight="700.0" prefWidth="900.0" spacing="10">
-            <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
-              <xAxis>
-                <NumberAxis label="Datenpunkt" side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis label="Gewicht" side="LEFT" />
-              </yAxis>
-            </LineChart>
-          </VBox>
-        </content>
-      </Tab>
-      <Tab closable="false" text="Einstellungen">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <HBox prefHeight="153.0" prefWidth="874.0" spacing="50.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="55.0" prefWidth="112.0" text="Daten">
-                           <HBox.margin>
-                              <Insets left="20.0" top="50.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Button fx:id="btnExport" mnemonicParsing="false" onAction="#handleExport" prefHeight="52.0" prefWidth="89.0" text="Export">
-                           <HBox.margin>
-                              <Insets top="50.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="btnImport" mnemonicParsing="false" onAction="#handleImport" prefHeight="52.0" prefWidth="89.0" text="Import">
-                           <HBox.margin>
-                              <Insets top="50.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>
-   </tabs>
-</TabPane>
+               </AnchorPane>
+           </content>
+         </Tab>
+		</tabs>
+	</TabPane>
+</AnchorPane>
